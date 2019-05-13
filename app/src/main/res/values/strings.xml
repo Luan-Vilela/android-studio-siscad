@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Escola</string>
+    <string name="confirmSave">Deseja salva essa ação?</string>
+    <string name="alertSave">Salvo com sucesso!</string>
+    <string name="alertWarning">Atenção!!!</string>
+    <string name="errorName">Digite um nome válido.</string>
+    <string name="errorEmail">Digite um email válido.</string>
+    <string name="errorPhone">Digite um telefone válido.</string>
+    <string name="errorWorkload">Digite uma carga horária válida.</string>
+    <string name="erroNotCourse">Você não tem nem um curso cadastrado, cadastre um curso!</string>
+    <string name="delete">Deseja realmente deletar? Não será possível desfazer o processo após a exclusão.</string>
+    <string name="fullDelete">Deseja realmente deletar? Todos os alunos vinculados ao curso serão deletados também!</string>
+    <string name="developer">Criado por Luan Vilela - github.com/luan-vilela</string>
+</resources>
