@@ -42,6 +42,7 @@ public class NewStudent extends AppCompatActivity {
 
         db = new Crud(this);
 
+        // Recebe todos os cursos do banco de dados
         arrCourse = db.listCourses();
         List<String> nameCourse = new ArrayList<String>();
 
@@ -52,13 +53,16 @@ public class NewStudent extends AppCompatActivity {
             alertCourse();
         }
         else {
+            // Lista todos os cursos em um spinner.
             course = (Spinner) findViewById(R.id.spnCurso);
             ArrayAdapter<String> arr = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, nameCourse);
             arr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             course.setAdapter(arr);
         }
     }
-
+    // Alerta Não deixa cadastrar aluno.
+    // Aluno só pode existir caso tenha algum curso.
+    // Modelagem do banco de dados, não pode ser quebrada
     public void alertCourse(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.alertWarning)
@@ -79,6 +83,7 @@ public class NewStudent extends AppCompatActivity {
 
 
     public void btnSave(View v){
+        // Teste, verifica se existe dados no EditView
         if(nome.getText().toString().isEmpty()){
             Toast.makeText(this, R.string.errorName,Toast.LENGTH_SHORT).show();
         }
@@ -91,6 +96,9 @@ public class NewStudent extends AppCompatActivity {
         }
         //criar teste course
         else{
+            // Lista os cursos em um spinner
+            // Caso ocorra algum bug vai salvar o curso em 0
+            // e não poderar listar o aluno
             int idCourse = 0;
             for(Curso curso: arrCourse)
                 if(curso.getNome().equals(course.getSelectedItem().toString()))
@@ -101,12 +109,14 @@ public class NewStudent extends AppCompatActivity {
         }
     }
 
+    // Botão cancelar
     public void btnCancel(View v){
         Intent it = new Intent(this, ListStudents.class);
         finish();
         startActivity(it);
     }
 
+    // Mensagem de salvo com sucesso
     public void sucess(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.alertSave)

@@ -12,12 +12,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.example.escola.Model.Crud;
 import com.example.escola.Model.CustomDataListStudents;
 import com.example.escola.Model.MyAdapterListStudents;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ListStudents extends AppCompatActivity{
@@ -31,8 +28,7 @@ public class ListStudents extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_students);
 
-        //Botão adiciona novo Aluno
-
+        //Botão flutuante adicionar novo Aluno
         FloatingActionButton add = findViewById(R.id.floatBtnAdd);
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +49,7 @@ public class ListStudents extends AppCompatActivity{
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Recupera o objeto com base no List e posição clicada ex. objeto[position]
                 CustomDataListStudents data = listObjectStudents.get(position);
 
                 Bundle bundle = new Bundle();
@@ -66,7 +63,7 @@ public class ListStudents extends AppCompatActivity{
         });
     }
 
-
+    // Método lista estudantes na listView
     public void listedStudents(){
         listObjectStudents = new ArrayList<>();
         listObjectStudents = db.listaTodosAlunos();

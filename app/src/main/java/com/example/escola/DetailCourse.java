@@ -46,6 +46,7 @@ public class DetailCourse extends AppCompatActivity {
 
     }
 
+    // Botão salvar
     public void btnSave(View v){
         if(bundle != null){
             course.setNome(name.getText().toString());
@@ -56,7 +57,7 @@ public class DetailCourse extends AppCompatActivity {
         }
     }
 
-
+    // Botão Deletar
     public void btnRemove(View v){
         if(bundle != null){
             AlertDialog.Builder  builder = new AlertDialog.Builder(this);
@@ -66,6 +67,7 @@ public class DetailCourse extends AppCompatActivity {
                     .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            // Caso confirme a exclusão
                             removeConfirm();
 
                         }
@@ -81,22 +83,12 @@ public class DetailCourse extends AppCompatActivity {
         }
     }
 
-
+    // Botão cancelar
     public void btnCancel(View v){
         returnApp();
     }
 
-    public void returnApp(){
-        Intent it = new Intent(getApplicationContext(), ListCourses.class);
-        finish();
-        startActivity(it);
-    }
-
-    public void removeConfirm(){
-        db.rmCourse(course);
-        returnApp();
-    }
-
+    // Mensagem de confirmação
     public void sucess(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.alertSave)
@@ -110,6 +102,18 @@ public class DetailCourse extends AppCompatActivity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    // Método responsável para excluir da tabela
+    public void removeConfirm(){
+        db.rmCourse(course);
+        returnApp();
+    }
+
+    public void returnApp(){
+        Intent it = new Intent(getApplicationContext(), ListCourses.class);
+        finish();
+        startActivity(it);
     }
 
 

@@ -13,12 +13,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 import com.example.escola.Model.Aluno;
 import com.example.escola.Model.Crud;
 import com.example.escola.Model.Curso;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +68,8 @@ public class DetailStudent extends AppCompatActivity {
         ArrayAdapter<String> arr = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, nameCourse);
         arr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         course.setAdapter(arr);
+        // Seta o curso atual do aluno no spinner.
+        // E posCourse corrigi o bug caso um curso anterior tenha sido deletado.
         int posCourse = (db.positionCursoToSpinner(student.getCurso()));
         course.setSelection(posCourse);
 
@@ -100,8 +99,9 @@ public class DetailStudent extends AppCompatActivity {
 
 
     }
-
+    // Botão salvar
     public void btnSaveUpdate(View v){
+        // Verifica se existe curso na tabela curso
         int idCourse = 0;
         for(Curso curso: arrCourse)
             if(curso.getNome().equals(course.getSelectedItem().toString()))
@@ -117,6 +117,8 @@ public class DetailStudent extends AppCompatActivity {
         sucess();
     }
 
+
+    // Alerta de confirmação de salvamento
     public void sucess(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.alertSave)
@@ -132,6 +134,7 @@ public class DetailStudent extends AppCompatActivity {
         alert.show();
     }
 
+    // Botão cancela
     public void btnCancel(View v){
         returnApp();
     }

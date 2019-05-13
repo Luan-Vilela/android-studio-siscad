@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,10 @@ public class Crud extends Connect {
     }
 
 
-    /* */
+    /*
+    * Insere aluno na tabela aluno
+    * Método recebe um objeto aluno e faz a inserção na tabela
+    */
 
     public void addAluno(Aluno aluno){
 
@@ -37,7 +39,11 @@ public class Crud extends Connect {
         db.close();
 
     }
-
+    /*
+    *   Método remove um aluno dá tabela
+    *   O método verifica se existe algum id igual do objeto e
+    *   exclui caso exista.
+     */
     public void removeAluno(Aluno aluno){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -45,7 +51,10 @@ public class Crud extends Connect {
         db.close();
 
     }
-
+    /*
+    * Seleciona 1 aluno na tabela com base no id.
+    * Retorna o objeto aluno
+    * */
     public Aluno selecionaAluno(int id){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -62,7 +71,11 @@ public class Crud extends Connect {
         db.close();
         return  aluno;
     }
-
+    /*
+    * Atualiza aluno na tabela.
+    * Método recebe um objeto completo aluno
+    * e atualiza ele na tabela caso exista o id
+    * */
     public void atualizarAluno(Aluno aluno){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -76,7 +89,11 @@ public class Crud extends Connect {
         db.update("aluno", values, "alunoId = ?", new  String[] { String.valueOf(aluno.getId()) });
         db.close();
     }
-
+    /*
+    * Método devolve um arraylist de alunos e curso.
+    * trabalha com as duas tabelas fazendo um join e retornando o
+    * curso e nome de cada aluno.
+    * */
     public ArrayList<CustomDataListStudents> listaTodosAlunos(){
         ArrayList<CustomDataListStudents> listaAluno = new ArrayList<CustomDataListStudents>();
 
@@ -86,7 +103,6 @@ public class Crud extends Connect {
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
-
 
         if (cursor.moveToFirst()){
             do{
@@ -103,10 +119,13 @@ public class Crud extends Connect {
         return listaAluno;
     }
 
-    /*
+    /* ***************************************************************************************
     * Methods Curso
     * */
 
+    /*
+    * Método recebe um objeto curso e insere na tabela
+    * */
     public void addCourse(Curso curso){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -118,12 +137,14 @@ public class Crud extends Connect {
         db.close();
 
     }
-
+    /*
+    * Método atualiza curso na tabela caso exista
+    * um id já cadastrado
+    * */
     public void updateCourse(Curso course){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-
 
         values.put("nomeCurso", course.getNome());
         values.put("qtdHoras", course.getQtdHoras());
@@ -132,14 +153,18 @@ public class Crud extends Connect {
         db.close();
     }
 
-
+    /*
+     * Método recebe um curso e deleta ele da tabela
+    * */
     public void rmCourse(Curso curso){
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete("curso", "cursoId = ?", new String[]{String.valueOf(curso.getId())});
         db.close();
     }
-
+    /*
+    * Retorna todos os cursos cadastrados no banco
+    * */
     public List<Curso> listCourses(){
         List<Curso> arrCourses = new ArrayList<Curso>();
 
@@ -148,10 +173,8 @@ public class Crud extends Connect {
 
         Cursor cursor = db.rawQuery(query, null);
 
-
         if(cursor.moveToFirst()){
             do{
-
                 Curso course = new Curso();
                 course.setId( Integer.parseInt(cursor.getString(0)) );
                 course.setNome(cursor.getString(1));
@@ -164,6 +187,10 @@ public class Crud extends Connect {
         return arrCourses;
     }
 
+    /*
+    * Retorna um curso se id existir na tabela
+    * recebe um int e retorna um objeto curso
+    * */
     public Curso selectOneCourse(int id){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -180,6 +207,11 @@ public class Crud extends Connect {
         return  course;
     }
 
+    /*
+    * Método retorna a posição do curso na tabela
+    * usado para setar o curso atual do aluno no spinner.
+    *
+    * */
     public int positionCursoToSpinner(int id){
         String query = "SELECT count(*) FROM curso WHERE cursoId < " + String.valueOf(id);
         SQLiteDatabase db = this.getWritableDatabase();

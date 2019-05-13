@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.escola.Model.Crud;
 import com.example.escola.Model.Curso;
 
@@ -28,8 +27,9 @@ public class NewCourses extends AppCompatActivity {
     }
 
 
-
+    // Botão salva
     public void btnSave(View v){
+        // Teste, verifica se existe dados no EditView
         if(name.getText().toString().isEmpty())
             Toast.makeText(this,R.string.errorName,Toast.LENGTH_SHORT).show();
         else if(workload.getText().toString().isEmpty())
@@ -44,14 +44,14 @@ public class NewCourses extends AppCompatActivity {
         }
     }
 
-
+    // Botão cancela
     public void btnCancel(View v){
         Intent it = new Intent(this, ListCourses.class);
         finish();
         startActivity(it);
     }
 
-
+    // Mensagem de salvo com sucesso
     public void msgAlert(){
         AlertDialog.Builder  builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.alertSave)
